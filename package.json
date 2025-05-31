@@ -1,8 +1,22 @@
 {
-  "name": "ts-type-expander",
+  "name": "@esoh/ts-type-expander-cli",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "A CLI tool to print full expanded version of TypeScript exported types",
+  "main": "cjs/cli.js",
+  "types": "cjs/cli.d.ts",
   "license": "MIT",
+  "author": "esoh",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/esoh/ts-type-expander-cli"
+  },
+  "keywords": [
+    "typescript",
+    "cli",
+    "type",
+    "debug",
+    "development"
+  ],
   "devDependencies": {
     "@types/node": "^22.15.29",
     "typescript": "^5.8.3"
@@ -18,6 +32,7 @@
     "cjs"
   ],
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "prepublishOnly": "yarn build || npm run build"
   }
 }

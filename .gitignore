@@ -1,2 +1,19 @@
-cjs
-node_modules
+# Dependencies
+node_modules/
+yarn-error.log
+package-lock.json
+
+# Build output
+cjs/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
