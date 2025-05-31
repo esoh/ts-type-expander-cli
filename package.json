@@ -1,6 +1,6 @@
 {
   "name": "@esoh/ts-type-expander-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A CLI tool to print full expanded version of TypeScript exported types",
   "main": "cjs/cli.js",
   "types": "cjs/cli.d.ts",
