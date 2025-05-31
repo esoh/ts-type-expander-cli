@@ -12,10 +12,6 @@ program
   .description("Print full expanded version of a TypeScript exported type")
   .arguments("<file> <typeName>")
   .action((file, typeName) => {
-    console.log("Hello", file, typeName);
-    console.log("__dirname:", __dirname);
-    console.log("process.cwd():", process.cwd());
-
     const consumerTsconfigPath = path.resolve("tsconfig.json");
 
     const project = new Project({
@@ -37,9 +33,8 @@ program
       console.error(`Could not find exported type: ${typeName}`);
       process.exit(1);
     }
-
-    // console.log("typeNodes:", typeNodes);
     const type = typeNodes[0].getType();
+
     const expanded = printExpanded(type);
     console.log("\n🧾 Expanded Type:\n");
     console.log(expanded);
