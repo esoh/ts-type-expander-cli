@@ -1,0 +1,23 @@
+{
+  "name": "ts-type-expander",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.15.29",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "ts-morph": "^26.0.0"
+  },
+  "bin": {
+    "ts-type-expander": "./cjs/cli.js"
+  },
+  "files": [
+    "cjs"
+  ],
+  "scripts": {
+    "build": "tsc"
+  }
+}
