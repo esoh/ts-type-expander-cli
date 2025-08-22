@@ -34,5 +34,6 @@
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "yarn build || npm run build"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }

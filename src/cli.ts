@@ -11,8 +11,9 @@ program
   .name("ts-type-expander")
   .description("Print full expanded version of a TypeScript exported type")
   .arguments("<file> <typeName>")
-  .action((file, typeName) => {
-    const consumerTsconfigPath = path.resolve("tsconfig.json");
+  .option("-c, --config <tsconfig>", "TypeScript configuration file", "tsconfig.json")
+  .action((file, typeName, options) => {
+    const consumerTsconfigPath = path.resolve(options.config);
 
     const project = new Project({
       tsConfigFilePath: consumerTsconfigPath,
