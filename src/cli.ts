@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Project, Type } from "ts-morph";
+import { Project, SymbolFlags, SyntaxKind, Type } from "ts-morph";
 import path from "path";
 import { Command } from "commander";
 import * as ts from "typescript"; // Required for format flags
@@ -11,7 +11,10 @@ const program = new Command();
 //   if (Math.random() > 0.5) {
 //     return 1;
 //   }
-//   return {a: "hello"} as const;
+//   return {a: "hello", b: 1} as {
+//     a?: string;
+//     readonly b: number;
+//   };
 // }
 // 
 // export type A = ReturnType<typeof test>;
@@ -20,9 +23,9 @@ program
   .name("ts-type-expander")
   .description("Print full expanded version of a TypeScript exported type")
   .arguments("<file> <typeName>")
-  .option("-c, --config <tsconfig>", "TypeScript configuration file", "tsconfig.json")
+  .option("-t, --ts-config <tsconfig>", "TypeScript configuration file", "tsconfig.json")
   .action((file, typeName, options) => {
-    const consumerTsconfigPath = path.resolve(options.config);
+    const consumerTsconfigPath = path.resolve(options.tsConfig);
 
     const project = new Project({
       tsConfigFilePath: consumerTsconfigPath,
@@ -99,7 +102,13 @@ function printExpanded(type: Type, depth = 0): string {
           const name = prop.getName();
           const valueDecl = prop.getDeclarations()[0];
           const valueType = prop.getTypeAtLocation(valueDecl);
-          return `${indent}  ${name}: ${printExpanded(valueType, depth + 1)};`;
+          const isReadonly = valueDecl.getCombinedModifierFlags() & ts.ModifierFlags.Readonly;
+          const readonly = isReadonly ? "readonly " : "";
+
+          const isOptional = prop.getFlags() & ts.SymbolFlags.Optional;
+          const optional = isOptional ? "?" : "";
+
+          return `${indent}  ${readonly}${name}${optional}: ${printExpanded(valueType, depth + 1)};`;
         })
         .join("\n") +
       `\n${indent}}`
