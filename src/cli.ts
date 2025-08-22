@@ -7,6 +7,15 @@ import * as ts from "typescript"; // Required for format flags
 
 const program = new Command();
 
+// function test() {
+//   if (Math.random() > 0.5) {
+//     return 1;
+//   }
+//   return {a: "hello"} as const;
+// }
+// 
+// export type A = ReturnType<typeof test>;
+
 program
   .name("ts-type-expander")
   .description("Print full expanded version of a TypeScript exported type")
@@ -70,7 +79,7 @@ function printExpanded(type: Type, depth = 0): string {
       prop.getName()?.startsWith("__@") === false &&
       prop.getDeclarations().some(decl => {
         const kind = decl.getKindName();
-        return kind === "PropertySignature" || kind === "PropertyDeclaration";
+        return kind === "PropertySignature" || kind === "PropertyDeclaration" || kind === 'PropertyAssignment';
       })
     );
 
